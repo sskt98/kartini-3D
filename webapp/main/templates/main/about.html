@@ -1,0 +1,35 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    Каталог
+{% endblock %}
+
+{% block content %}
+<h1>Каталог</h1>
+   <div class="katalog-link">
+    <a href="https://drive.google.com/file/d/1LSC2Tpy1J2u4VoO3n1YgWZHAsVhHBbB9/view" target="_blank">
+        <i class="fas fa-folder-open"></i> Повний каталог
+    </a>
+</div>
+
+{% if photos %}
+
+    <div class="gallery">
+        {% for photo in photos %}
+    <div class="photo" style="margin-bottom: 20px;">
+        {% if photo.image %}
+            <a href="{% url 'photo_detail' photo.pk %}">
+                <img src="{{ photo.image.url }}" alt="{{ photo.title }}" style="max-width: 300px; height: auto; display: block;">
+            </a>
+            <p>{{ photo.title }}</p>
+        {% else %}
+            <p>Фото отсутствует</p>
+        {% endif %}
+    </div>
+{% endfor %}
+    </div>
+{% else %}
+    <p>Фотографий пока нет.</p>
+{% endif %}
+
+{% endblock %}

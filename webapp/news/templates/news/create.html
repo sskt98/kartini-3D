@@ -1,0 +1,23 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Форма додавання відгуку{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1>Форма додавання відгуку</h1>
+
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.title }}<br>
+            {{ form.anons }}<br>
+            {{ form.full_text}}<br>
+            {{ form.date }}<br>
+            <span style="color:red;">{{ error }}</span>
+            <button class="btn">Додати відгук</button>
+        </form>
+    {% else %}
+        <p>Щоб додати відгук, <a href="{% url 'login' %}">увійдіть</a> на сайт.</p>
+    {% endif %}
+</div>
+{% endblock %}

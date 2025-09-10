@@ -1,0 +1,20 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Видалення відгуку{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1>Видалення відгуку</h1>
+
+    {% if user.is_authenticated and object.user == user %}
+        <p>Ви дійсно хочете видалити відгук "{{ object.title }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+             <a href="#" onclick="this.closest('form').submit();" class="btn">Видалити відгук</a>
+    <a href="{% url 'news-detail' object.id %}" class="btn">Скасування</a>
+        </form>
+    {% else %}
+        <p>У вас немає прав для видалення цього відгуку.</p>
+    {% endif %}
+</div>
+{% endblock %}

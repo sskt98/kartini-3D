@@ -1,0 +1,35 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Відгуки{% endblock %}
+
+{% block content %}
+<div class="features">
+    <h1>Відгуки</h1>
+
+    {% if news %}
+        {% for el in news %}
+            <div class="alert-warning" style="margin-bottom: 20px; padding: 15px; border-radius: 8px;">
+                <h3>{{ el.title }}</h3>
+                <p>{{ el.anons }}</p>
+                <small style="color: gray;">Автор: {{ el.user.username }} | Дата: {{ el.date|date:"d.m.Y H:i" }}</small>
+                <div style="margin-top: 10px;">
+                    <a href="{% url 'news-detail' el.id %}" class="btn ">Читати докладніше</a>
+                    
+                    {% if user.is_authenticated and el.user == user %}
+                        <a href="{% url 'news-update' el.id %}" class="btn ">Редагувати</a>
+                        <a href="{% url 'news-delete' el.id %}" class="btn ">Видалити</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>У вас нет записей!</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'news-create' %}" class="btn btn-primary" style="margin-top: 20px;">Додати відгук</a>
+    {% else %}
+        <p>Щоб додати відгук, <a href="{% url 'login' %}">увійдіть</a> на сайт.</p>
+    {% endif %}
+</div>
+{% endblock %}

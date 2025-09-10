@@ -1,0 +1,12 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}
+    {{ photo.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ photo.title }}</h1>
+    <img src="{{ photo.image.url }}" alt="{{ photo.title }}" style="max-width:600px; height:auto; display:block; margin:auto;">
+    <br>
+    <a href="{% url 'about' %}" class="btn">⬅ Назад до каталогу</a>
+{% endblock %}
