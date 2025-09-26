@@ -67,19 +67,19 @@ main .features {
 }
 @media (max-width: 768px) {
     main .features {
-        float: none;       /* убираем обтекание */
-        width: 100%;       /* пусть занимает всю ширину */
-        margin-top: 20px;  /* делаем адекватный отступ */
-        padding: 0 15px;   /* чуть-чуть отступы по бокам */
+        float: none;
+        width: 100%;
+        margin-top: 20px;
+        padding: 0 15px;
         box-sizing: border-box;
     }
 
     main .features h1 {
-        font-size: 28px;   /* уменьшаем заголовок для мобилы */
+        font-size: 28px;
     }
 
     main .features p {
-        max-width: 100%;   /* убираем ограничение */
+        max-width: 100%;
         font-size: 16px;
     }
 }
@@ -355,19 +355,34 @@ h1 {
         padding-top: 80px;
     }
 
+ @media (max-width: 768px) {
     header {
-        flex-direction: row;
-        justify-content: space-between;
-        padding: 10px 20px;
-        height: 60px;
+        flex-direction: column;
+        height: 70px;         /* подстраивается под контент */
+        padding: 5px 15px;
+        text-align: left;
     }
 
     header .top-nav {
-        display: none;
+        display: flex;
+        flex-direction: row;   /* горизонтально */
+        flex-wrap: wrap;       /* чтобы переносилось при нехватке места */
+        gap: 5px;              /* небольшой промежуток между ссылками */
+        align-items: center;
+        padding: 5px 0;
     }
 
+    header .top-nav a {
+        margin: 0;             /* убираем вертикальные отступы */
+        font-size: 14px;       /* чуть меньше шрифт */
+        white-space: nowrap;   /* текст не переносится на новую строку */
+    }
+   }
+
+
+
     .burger {
-        display: block;
+         display: block;
     }
 
     reg, lg {
@@ -455,5 +470,3 @@ h1 {
     font-size: 20px;
     vertical-align: middle;
 }
-
-
