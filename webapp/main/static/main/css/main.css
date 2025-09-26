@@ -358,24 +358,24 @@ h1 {
  @media (max-width: 768px) {
     header {
         flex-direction: column;
-        height: 70px;         /* подстраивается под контент */
+        height: 70px;
         padding: 5px 15px;
         text-align: left;
     }
 
     header .top-nav {
         display: flex;
-        flex-direction: row;   /* горизонтально */
-        flex-wrap: wrap;       /* чтобы переносилось при нехватке места */
-        gap: 5px;              /* небольшой промежуток между ссылками */
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 5px;
         align-items: center;
         padding: 5px 0;
     }
 
     header .top-nav a {
-        margin: 0;             /* убираем вертикальные отступы */
-        font-size: 14px;       /* чуть меньше шрифт */
-        white-space: nowrap;   /* текст не переносится на новую строку */
+        margin: 0;
+        font-size: 14px;
+        white-space: nowrap;
     }
    }
 
