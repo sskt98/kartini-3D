@@ -1,33 +1,35 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import Photo
-from django.shortcuts import render, get_object_or_404
-import os
+from .forms import SignUpForm
 import re
 
-from .forms import SignUpForm
 
 def about(request):
     photos = list(Photo.objects.all())
 
+
     def get_number(photo):
-        name = os.path.splitext(os.path.basename(photo.image.name))[0]
-        match = re.search(r'\d+', name)
-        return int(match.group()) if match else 0
+        public_id = getattr(photo.image, 'public_id', None)
+        if public_id:
+            match = re.search(r'R-(\d+)', public_id)
+            return int(match.group(1)) if match else 0
+        else:
+            return photo.id
 
     photos.sort(key=get_number)
     return render(request, 'main/about.html', {'photos': photos})
 
-def page(request):
-    print(request.user)
+
+def photo_detail(request, pk):
+    photo = get_object_or_404(Photo, pk=pk)
+    return render(request, 'main/photo_detail.html', {'photo': photo})
 
 
 def index(request):
     return render(request, 'main/index.html')
-
-
 
 
 def contact(request):
@@ -43,7 +45,7 @@ def user_login(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Неправильне ім''я користувача або пароль.')
+            messages.error(request, "Неправильне ім'я користувача або пароль.")
     return render(request, 'main/login.html')
 
 
@@ -71,7 +73,6 @@ def signup(request):
 def home(request):
     return render(request, 'home.html')
 
-def photo_detail(request, pk):
-    photo = get_object_or_404(Photo, pk=pk)
-    return render(request, 'main/photo_detail.html', {'photo': photo})
-
+def page(request):
+    print(request.user)
+    return render(request, 'main/page.html')

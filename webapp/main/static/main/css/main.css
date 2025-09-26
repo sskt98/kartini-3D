@@ -65,6 +65,24 @@ main .features {
     text-align: center;
     width: 80%;
 }
+@media (max-width: 768px) {
+    main .features {
+        float: none;       /* убираем обтекание */
+        width: 100%;       /* пусть занимает всю ширину */
+        margin-top: 20px;  /* делаем адекватный отступ */
+        padding: 0 15px;   /* чуть-чуть отступы по бокам */
+        box-sizing: border-box;
+    }
+
+    main .features h1 {
+        font-size: 28px;   /* уменьшаем заголовок для мобилы */
+    }
+
+    main .features p {
+        max-width: 100%;   /* убираем ограничение */
+        font-size: 16px;
+    }
+}
 
 main .features h1 {font-size: 50px;}
 main .features p {max-width: 400px; margin: 20px auto;}
@@ -399,6 +417,11 @@ h1 {
     text-align: center;
     color: #fff;
 }
+@media (max-width: 768px) {
+    .contact-card {
+        margin: 20px auto;
+        width: 90%;
+        max-width: 100%;
 
 .contact-card h2 {
     margin-bottom: 15px;

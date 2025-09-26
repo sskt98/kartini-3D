@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
 import cloudinary
-import cloudinary
+import cloudinary.uploader
 import cloudinary.api
 from pathlib import Path
 
@@ -138,14 +138,15 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dfky4yhc4',
-    'API_KEY': '816769133576643',
-    'API_SECRET': 'LonWJeZzJGbUkWk0ly01WM-My_U',
-}
-CLOUDINARY_URL = os.getenv("CLOUDINARY_URL")
+cloudinary.config(
+    cloud_name="dfky4yhc4",
+    api_key="816769133576643",
+    api_secret="LonWJeZzJGbUkWk0ly01WM-My_U"
+)
+CLOUDINARY_URL = "cloudinary://816769133576643:LonWJeZzJGbUkWk0ly01WM-My_U@dfky4yhc4"
+
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 

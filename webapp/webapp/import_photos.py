@@ -1,17 +1,47 @@
 import os
-from django.core.files import File
-from main.models import Photo
-from django.conf import settings
+import sys
+import django
 
-folder_path = os.path.join(settings.MEDIA_ROOT, "photos")
+# -----------------------------
+# Настройка Django
+# -----------------------------
+
+# Путь к корню проекта (где папка webapp с settings.py)
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Добавляем папку с settings.py в sys.path
+sys.path.append(os.path.join(PROJECT_ROOT, 'webapp'))
+
+# Указываем Django, где настройки
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "webapp.settings")
+django.setup()
+
+# -----------------------------
+# Импорт модели
+# -----------------------------
+from main.models import Photo
+
+# -----------------------------
+# Путь к папке с фото
+# -----------------------------
+folder_path = os.path.join(PROJECT_ROOT, "media", "photos")
+
 if not os.path.exists(folder_path):
     print(f"❌ Папка {folder_path} не найдена!")
 else:
-    files = sorted([f for f in os.listdir(folder_path) if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))])
+    # Удаляем все старые записи
+    Photo.objects.all().delete()
+    print("🗑 Все старые фотографии удалены из базы.")
+
+    # Берем первые 404 файла (по алфавиту)
+    files = sorted([
+        f for f in os.listdir(folder_path)
+        if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))
+    ])
     files_to_add = files[:404]
 
     for idx, filename in enumerate(files_to_add, start=1):
-        relative_path = f"photos/{filename}"
+        relative_path = f"photos/{filename}"  # путь для поля ImageField
         Photo.objects.create(
             title=f"Модель №{idx}",
             image=relative_path
